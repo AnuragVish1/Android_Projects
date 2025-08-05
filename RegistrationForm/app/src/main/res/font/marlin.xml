@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <font
+        android:font="@font/marlinmed"
+        android:fontStyle="normal"/>
+    <font
+        android:font="@font/marlinbold"
+        android:fontStyle="normal"/>
+    <font
+        android:font="@font/marlinextrabold"
+        android:fontStyle="normal"/>
+    <font
+        android:font="@font/marlinblack"
+        android:fontStyle="normal"/>
+</font-family>

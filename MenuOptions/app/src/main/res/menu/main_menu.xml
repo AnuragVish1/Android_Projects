@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item1"
+        android:title="Settings"
+        />
+    <item
+        android:id="@+id/item2"
+        android:title="Help"/>
+    <item
+        android:id="@+id/item3"
+        android:title="More">
+
+        <menu>
+            <item
+                android:id="@+id/item3_1"
+                android:title="About Us"
+                />
+            <item
+                android:id="@+id/item3_2"
+                android:title="Our Policy"/>
+        </menu>
+
+    </item>
+</menu>

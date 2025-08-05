@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">newAppIntentExample</string>
+    <string name="text">Text</string>
+    <string name="next">Next</string>
+    <string name="_3rd_page">3rd Page</string>
+    <string name="no_text">No Text Yet</string>
+    <string name="open_map">open map</string>
+    <string name="back">Back</string>
+</resources>
