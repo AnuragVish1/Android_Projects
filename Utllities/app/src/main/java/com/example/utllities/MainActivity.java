@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +45,39 @@ public class MainActivity extends AppCompatActivity {
         });
     bluetoothBtn = findViewById(R.id.bluetooth);
     wifiBtn = findViewById(R.id.wifi);
+    locationBtn = findViewById(R.id.location);
+
+    locationBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            LayoutInflater layoutInflater = getLayoutInflater();
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            View dialogView = layoutInflater.inflate(R.layout.dialog_switch, null);
+            MaterialSwitch switchMaterial = dialogView.findViewById(R.id.toggle_switch);
+            switchMaterial.setText("Enable Location");
+            MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(MainActivity.this).setTitle("Location").setView(dialogView).setPositiveButton("Ok", null);
+            alertDialogBuilder.show();
+            if (locationManager.isLocationEnabled()){
+                switchMaterial.setChecked(true);
+                switchMaterial.setText("Disable Location");
+            }
+            switchMaterial.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
+                    if (!locationManager.isLocationEnabled() && isChecked){
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                    else if (locationManager.isLocationEnabled() && !isChecked){
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                }
+            });
+
+
+        }
+    });
 
     // toggling wifi
     wifiBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,15 +134,12 @@ public class MainActivity extends AppCompatActivity {
             switchMaterial.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
-                    if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-
-                        switchMaterial.setOnCheckedChangeListener(null);
-                        switchMaterial.setChecked(!isChecked);
-                        switchMaterial.setOnCheckedChangeListener(this);
-                        return;
-                    }
                     if (isChecked && !bluetoothAdapter.isEnabled()){
                         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 100);
+                        }
                         startActivityForResult(enableBtIntent, 1);
                     }
                     else if(!isChecked){
