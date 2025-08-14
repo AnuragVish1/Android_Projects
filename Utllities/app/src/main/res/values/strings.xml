@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Utllities</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="wi_fi">WI-FI</string>
+    <string name="location">Location</string>
+    <string name="enable_bluetooth">Enable Bluetooth</string>
+</resources>
