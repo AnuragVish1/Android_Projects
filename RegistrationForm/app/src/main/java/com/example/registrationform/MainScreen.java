@@ -1,7 +1,9 @@
 package com.example.registrationform;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -23,20 +25,33 @@ public class MainScreen extends AppCompatActivity {
             return insets;
         });
         TextView nameText, phoneText, cityText, genderText;
-        Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String phoneNumber = intent.getStringExtra("phone");
-        String city = intent.getStringExtra("city");
-        String gender = intent.getStringExtra("gender");
+        String name, phone, city, gender;
         nameText = findViewById(R.id.name);
         phoneText = findViewById(R.id.phone);
         cityText = findViewById(R.id.City);
         genderText = findViewById(R.id.Gender);
-
+        Intent intent = getIntent();
+        SharedPreferences sharedPrefs = getSharedPreferences("userPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        name = sharedPrefs.getString("username", "");
+        if (!name.isEmpty()){
+            // if user is already registered
+            phone = sharedPrefs.getString("phone", "");
+            city = sharedPrefs.getString("city", "");
+            gender = sharedPrefs.getString("gender", "");
+        } else {
+            // if user comes from the signup page
+            name = intent.getStringExtra("name");
+            phone = intent.getStringExtra("phone");
+            city = intent.getStringExtra("city");
+            gender = intent.getStringExtra("gender");
+        }
         nameText.setText(name);
-        phoneText.setText(phoneNumber);
+        Log.d("00000000----00000000", "onCreate: " + name);
+        phoneText.setText(phone);
         cityText.setText(city);
         genderText.setText(gender);
+
 
     }
 }

@@ -98,6 +98,13 @@ public class SignUpScreen extends AppCompatActivity {
                     intent.putExtra("password", password.getText().toString());
                     intent.putExtra("city", city[0]);
                     intent.putExtra("gender", gender[0]);
+                    SharedPreferences sharedPrefs = getSharedPreferences("userPrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPrefs.edit();
+                    editor.putString("username", name.getText().toString());
+                    editor.putString("phone", phoneNumber.getText().toString());
+                    editor.putString("city", city[0]);
+                    editor.putString("gender", gender[0]);
+                    editor.apply();
                     startActivity(intent);
                 }
             }
