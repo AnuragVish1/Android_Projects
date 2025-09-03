@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .formContainer {
+          height: 100vh;
+          width: 100vw;
+          display: flex;
+          gap: 2rem;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .field {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .fields {
+          display: flex;
+          gap: 1rem;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          width: 25%;
+          border: 1.2px solid #e6e6e6;
+          padding: 2rem;
+          border-radius: 6px;
+        }
+
+        input, select {
+          margin-top: 0.8rem;
+          padding: 0.4rem;
+          outline: none;
+          border: 1.5px solid #ececec;
+          border-radius: 6px;
+        }
+
+        button {
+          width: 100%;
+          padding: 0.5rem;
+          border: 1px solid #eee;
+          background-color: rgb(86, 111, 186);
+          color: white;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: all 0.5s ease;
+        }
+
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        button:active {
+          transform: scale(0.9, 0.9);
+          transition: all 0.5s ease;
+        }
+
+        .error {
+          color: red;
+          font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="formContainer">
+    <div class="container">
+        <h1>REGISTER</h1>
+        <div class="fields">
+            <div class="field">
+                <label>Username</label>
+                <input type="text" id="username"/>
+                <p id="username_error" class="error"></p>
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" id="email"/>
+                <p id="email_error" class="error"></p>
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input type="password" id="password"/>
+                <p id="password_error" class="error"></p>
+            </div>
+            <div class="field">
+                <label>Age</label>
+                <input type="number" id="age" min="1" max="120"/>
+                <p id="age_error" class="error"></p>
+            </div>
+            <div class="field">
+                <label>Gender</label>
+                <select id="gender">
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <p id="gender_error" class="error"></p>
+            </div>
+        </div>
+        <button onclick="register()">Register</button>
+    </div>
+</div>
+
+<script>
+    function register() {
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const age = document.getElementById("age").value;
+      const gender = document.getElementById("gender").value;
+
+      document.getElementById("username_error").textContent = "";
+      document.getElementById("email_error").textContent = "";
+      document.getElementById("password_error").textContent = "";
+      document.getElementById("age_error").textContent = "";
+      document.getElementById("gender_error").textContent = "";
+
+      let isValid = true;
+
+      if (!username) {
+        document.getElementById("username_error").textContent = "Username is required";
+        isValid = false;
+      }
+
+      if (!email) {
+        document.getElementById("email_error").textContent = "Email is required";
+        isValid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById("email_error").textContent = "Enter a valid email";
+        isValid = false;
+      }
+
+      if (!password) {
+        document.getElementById("password_error").textContent = "Password is required";
+        isValid = false;
+      } else if (password.length < 6) {
+        document.getElementById("password_error").textContent = "Password must be at least 6 characters";
+        isValid = false;
+      }
+
+      if (!age) {
+        document.getElementById("age_error").textContent = "Age is required";
+        isValid = false;
+      } else if (age < 1 || age > 120) {
+        document.getElementById("age_error").textContent = "Enter a valid age (1-120)";
+        isValid = false;
+      }
+
+      if (!gender) {
+        document.getElementById("gender_error").textContent = "Please select gender";
+        isValid = false;
+      }
+
+      if (isValid) {
+        window.location.href = "index.html"
+      }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    <bean id="laptop" class="org.example.Laptop">
+        <property name="charger" value="28%"/>
+    </bean>
+    <bean id="person" class="org.example.Person">
+        <property name="age" value="20"/>
+        <property name="laptop" ref="laptop"/>
+    </bean>
+
+</beans>
